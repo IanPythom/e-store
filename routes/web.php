@@ -44,3 +44,5 @@ Route::group(['as' => 'animals.', 'prefix' => 'animals'], function(){
 Route::get('test', function() {
     return view('test');
 })->name('test');
+
+Route::get('contact', [TestController::class, 'contact'])->name('contact');
