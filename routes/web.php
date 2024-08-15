@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +21,7 @@ Route::get('/', function () {
 
 Route::get('about', function () {
     return 'This is the about page';
-});
+})->name('about');
 
 Route::get('rooms/{id}', function ($id) {
     return [
@@ -46,3 +48,5 @@ Route::get('test', function() {
 })->name('test');
 
 Route::get('contact', [TestController::class, 'contact'])->name('contact');
+
+Route::resource('blog', BlogController::class);
