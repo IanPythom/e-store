@@ -45,3 +45,38 @@
 
         dd($blog); // dd means dump and die. debugging tool that output the value of the given variable then immediately stop the execution of the script.
     }
+
+Relationships
+    public function index()
+    {
+        // ONE TO ONE RELATIONSHIP
+        #==========================
+        // Return the object with its relation object (belongsTo)
+        # $blog = Blog::all();
+        # $category = $blog->category;
+        # return $blog;
+
+        // Fetching data with its categories
+        // NOTE : all() -> is a static method and cannot be used in a chaining way
+        # $blog = Blog::with('category')->get();
+        # return $blog;
+
+        // Fetching data with its categories
+        // NOTE : all() -> is a static method and cannot be used in a chaining way
+        # $blog = Blog::with('category')->get();
+        # return $blog;
+
+        // Running a loop on the collection maybe we want only the titles of the blog
+        // This is a continuation of our 1 to 1 relationship
+        # $blogs = Blog::with('category')->get();
+        # foreach($blogs as $blog)
+        # {
+        #     echo $blog->title.' & '.$blog->category->name;
+        #     echo '</br>';
+        # }
+
+        // ONE TO MANY RELATIONSHIP
+        #==========================
+        # $category = Category::find(1);
+        # return $category->blogs;
+    }

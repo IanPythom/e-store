@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Blog extends Model
+class Category extends Model
 {
     use HasFactory;
 
-    protected $table='blogs';
-
-    public function category()
+    public function blogs()
     {
-        return $this -> belongsTo(Category::class);
+        // hasMany
+        // belongsToMany
+        return $this -> hasMany(Blog::class);
     }
 }

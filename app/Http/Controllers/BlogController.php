@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; // For using RAW Queries
 
 class BlogController extends Controller
 {
@@ -13,50 +14,36 @@ class BlogController extends Controller
      */
     public function index()
     {
-        // the all method return a collection
+        // ONE TO ONE RELATIONSHIP
+        #==========================
+        // Return the object with its relation object (belongsTo)
         # $blog = Blog::all();
+        # $category = $blog->category;
+        # return $blog;
 
-        // The find method takes a parameter which is the identifier
-        # $blog = Blog::find(2);
-        # returns the first value
-        # $blog = Blog::first();
+        // Fetching data with its categories
+        // NOTE : all() -> is a static method and cannot be used in a chaining way
+        # $blog = Blog::with('category')->get();
+        # return $blog;
 
-        // BTW these are eloquent queries
-        # $blog = Blog::all();
+        // Fetching data with its categories
+        // NOTE : all() -> is a static method and cannot be used in a chaining way
+        # $blog = Blog::with('category')->get();
+        # return $blog;
 
-        // Raw queries use DB instance initialization
-        # $blog = DB::select('SELECT * FROM blogs'); //->get()
+        // Running a loop on the collection maybe we want only the titles of the blog
+        // This is a continuation of our 1 to 1 relationship
+        # $blogs = Blog::with('category')->get();
+        # foreach($blogs as $blog)
+        # {
+        #     echo $blog->title.' & '.$blog->category->name;
+        #     echo '</br>';
+        # }
 
-        // ADDING DATA TO THE DATABASE
-        # $blog = new Blog(); // This creates an instance of our model
-        # $blog -> title = '2 this is a new title';
-        # $blog -> body = '2 this is a new body';
-        # $blog -> status = 0;
-        # $blog -> save();
-
-        // UPDATING DATA IN THE DATABASE
-        # $blog = Blog::find(1);
-        # //dd($blog);
-        # $blog -> title = 'this is a new title and its awesome';
-        # $blog -> body = 'this is a new body its just as awesome';
-        # $blog -> status = 1;
-        # $blog -> save();
-
-        // FINDING VALUES FROM THE DATABASE
-        # $blog = Blog::where('status', '=', 1)->where('id', '=', 2)->get();
-
-        // HOW TO CHAIN MULTIPLE WHERE CONDITIONS (Using Arrays)
-        // Note array uses the equal and arrow
-        #$blog = Blog::where(['status' => 0, 'id' =>3])->get();
-
-        // DELETE DATA
-        # $blog = Blog::find(2);
-        # $blog->delete();
-        // findOrFail method is case sensitive
-        # $blog = Blog::findOrFail(2); // to return users to the 404 page incase the data doesnt exist
-        # $blog->delete();
-
-        //dd($blog); // dd means dump and die. debugging tool that output the value of the given variable then immediately stop the execution of the script.
+        // ONE TO MANY RELATIONSHIP
+        #==========================
+        # $category = Category::find(1);
+        # return $category->blogs;
     }
 
     /**
