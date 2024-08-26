@@ -34,7 +34,7 @@ Route::group(['as' => 'animals.', 'prefix' => 'animals'], function(){
     Route::get('dog', function(){
         return 'woof';
     })->name('dog');
-    
+
     Route::get('cat', function(){
         return 'meow!';
     })->name('cat');
@@ -49,4 +49,5 @@ Route::get('test', function() {
 
 Route::get('contact', [TestController::class, 'contact'])->name('contact');
 
-Route::resource('blog', BlogController::class);
+Route::resource('blog', BlogController::class)->middleware('auth.check');
+
