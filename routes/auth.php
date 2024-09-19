@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -56,4 +58,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+});
+
+// Add a prefix so that you can prevent conflicts of the login page
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function() {
+    Route::get('login', [AdminController::class, 'index'])->name('login.index'); // admin.login
+    Route::post('login', [AdminController::class, 'login'])->name('login');
+    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard')->middleware('admin');
 });
